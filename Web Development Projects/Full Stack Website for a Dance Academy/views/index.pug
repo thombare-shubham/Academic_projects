@@ -1,0 +1,62 @@
+doctype html
+html
+    head
+        title Shubham's Dance Academy!
+        style
+            include ../static/style.css
+    body
+        nav#navbar.top.firstclass.secondclass
+            ul
+                div#logo
+                    img(src="/static/img/logo.jpg", alt="Academy logo")
+                    | SDA
+                li  #[a(href="/") Home]
+                li  #[a(href="/") About]
+                li  #[a(href="/") Services]
+                li  #[a(href="/") ContactUs]
+                li  #[a(href="/") Class Info ]
+                
+        section#introSection
+            div Welcome to Shubham's Dance Academy!
+            div.small Eat Dance Sleep Repeat
+
+        section#missionSection
+            h2 Our Mission
+            div.card
+                h3 Dance Perfection
+                div.card-box
+                    div.card-img
+                        img(src="/static/img/3.png")
+
+                    div.card-content
+                        p Add perfection in your dance either you are new or experienced.
+            div.card
+                h3 Dance The Way you Like
+                div.card-box
+                    div.card-img
+                        img(src="/static/img/2.png")
+
+                    div.card-content
+                        p A variety of Indian as well as Western dance forms to learn.
+            div.card
+                h3 Expert Teaching
+                div.card-box
+                    div.card-img
+                        img(src="/static/img/3.png")
+
+                    div.card-content
+                        p Learn from the best teachers recognized by world.
+                    
+
+        section#sponsorSection      
+            h2 Our Sponsors
+            div#sponsors
+                img(src="/static/img/hp.png", alt="Sponsor Image",class="spImage")
+                img(src="/static/img/apple.jpg", alt="Sponsor Image",class="spImage")
+                img(src="/static/img/microsoft.png", alt="Sponsor Image",class="spImage")
+                img(src="/static/img/skype.png", alt="Sponsor Image",class="spImage")
+
+        footer#footer
+            | Copyright 2020 @Shubham's Dance Academy | All rights reserved. 
+        script
+            include ../static/index.js

@@ -1,0 +1,21 @@
+//- Basic Template
+doctype html
+html
+    head
+        title Shubham's Dance Academy
+        block scripts
+        block style
+    body
+        nav#navbar.top.firstclass.secondclass
+            ul
+                div#logo
+                    img(src="../static/img/logo.jpg", alt="Academy logo")
+                    | SDA
+                li  #[a(href="/") Home]
+                li  #[a(href="/") About]
+                li  #[a(href="/") Services]
+                li  #[a(href="/contact") ContactUs]
+                li  #[a(href="/") Class Info ]
+        block content
+        footer#footer
+            | Copyright 2020 @Shubham's Dance Academy | All rights reserved. 
