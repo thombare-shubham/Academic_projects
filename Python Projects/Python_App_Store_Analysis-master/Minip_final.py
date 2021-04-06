@@ -8,25 +8,26 @@ from tkinter import *
 
 main_ui = Tk()
 
-user_reviews = pd.read_csv("C:\MY FILES\Project\googleplaystore_user_reviews.csv")
+user_reviews = pd.read_csv(
+    "C:\MY FILES\Project\googleplaystore_user_reviews.csv")
 playstore_data = pd.read_csv("C:\MY FILES\Project\googleplaystore.csv")
 store_data = pd.read_csv("C:\MY FILES\Project\AppleStore.csv")
 app_desc = pd.read_csv("C:\MY FILES\Project\AppleStore_description.csv")
 
 # Definations of All programs
- # removing the missing values
+# removing the missing values
 print("Performing data Cleaning!\n")
 user_reviews.dropna(inplace=True)
 # remove duplicates in play store1
 
 # playstore_data.drop_duplicates(inplace=True)
 playstore_data = playstore_data.drop_duplicates(subset='App')
-playstore_data.dropna(inplace=True, subset=['Type', 'Content Rating', 'Current Ver', 'Android Ver'])
+playstore_data.dropna(inplace=True, subset=[
+                      'Type', 'Content Rating', 'Current Ver', 'Android Ver'])
 # filling rating in missing areas by not captured (0)
 
 playstore_data.fillna(0, inplace=True)
 playstore_data[playstore_data['Rating'] == 0].head()
-
 
 
 def googleplaystore():
@@ -36,7 +37,8 @@ def googleplaystore():
     # Second Slide Data
     play_ui.title("Appylyzer:Google Playstore Ananlysis!")
     play_ui.geometry("850x550+50+50")
-    ws_label = Label(play_ui, text='Google Play Store!', fg="black", bg="#ef5777", font=('Arial', 20, 'bold')).pack()
+    ws_label = Label(play_ui, text='Google Play Store!', fg="black",
+                     bg="#ef5777", font=('Arial', 20, 'bold')).pack()
     wsbutton_one = Button(play_ui, text="1.Find total no of apps & reviews", fg="black", bg="#f53b57",
                           command=pl_total, font=('opensans', 12, 'italic')).place(x=170, y=50)
     wsbutton_two = Button(play_ui, text="2.Descriptive Analysis on Play store", fg="black", bg="#f53b57",
@@ -58,7 +60,7 @@ def googleplaystore():
     wsbutton_ten = Button(play_ui, text="10.Exit", fg="black", bg="#f53b57", command=play_ui.destroy,
                           font=('opensans', 12, 'italic')).place(x=170, y=500)
     play_ui.mainloop()
-    #exit()
+    # exit()
 
 
 def applestore():
@@ -66,7 +68,8 @@ def applestore():
     apple_ui.configure(bg='#d2dae2')
     apple_ui.title("Appylyzer:Apple App store Ananlysis!")
     apple_ui.geometry("850x550+50+50")
-    wt_label = Label(apple_ui, text='Apple App Store!', fg="black", bg="#d2dae2", font=('arial', 20, 'bold')).pack()
+    wt_label = Label(apple_ui, text='Apple App Store!', fg="black",
+                     bg="#d2dae2", font=('arial', 20, 'bold')).pack()
     wtbutton_one = Button(apple_ui, text="1.View Head Entries and description about Dataset", fg="black", bg="#95a5a6",
                           command=as_apple_head, font=('opensans', 12, 'italic')).place(x=170, y=50)
     wtbutton_two = Button(apple_ui, text="2.Top 10 Apps based on Rating", fg="black", bg="#95a5a6",
@@ -84,7 +87,7 @@ def applestore():
     wtbutton_eight = Button(apple_ui, text="8.Exit", fg='black', bg="#95a5a6", command=apple_ui.destroy,
                             font=('opensans', 12, 'italic')).place(x=170, y=400)
     apple_ui.mainloop()
-    #exit()
+    # exit()
 
 
 # Function For Visualization
@@ -124,7 +127,8 @@ def pl_desc_analysis():
     from scipy.stats import kurtosis, skew
 
     x = np.random.normal(0, 2, 10000)
-    print('excess kurtosis of  distribution : {}'.format(kurtosis(rating['Rating'])))
+    print('excess kurtosis of  distribution : {}'.format(
+        kurtosis(rating['Rating'])))
     print('skewness of distribution: {}'.format(skew(rating['Rating'])))
 
 
@@ -147,7 +151,8 @@ def pl_user_review_bar_plot():
 
     print(df1['index'].values)
 
-    bar_plot(x=df1['index'], y=df1['Sentiment'], color='g', y_label='Sentiment_Freq', title='Bar Plot on Sentiment')
+    bar_plot(x=df1['index'], y=df1['Sentiment'], color='g',
+             y_label='Sentiment_Freq', title='Bar Plot on Sentiment')
 
 
 def pl_overall_analysis():
@@ -198,7 +203,8 @@ def pl_generic_analysis():
 
 def pl_billion_exceed():
     print("Apps with 1 Billion Downloads:\n")
-    print(playstore_data[playstore_data['Installs'] == '1,000,000,000+']['App'])
+    print(playstore_data[playstore_data['Installs']
+                         == '1,000,000,000+']['App'])
 
 
 def pl_each_seg_top():
@@ -211,7 +217,7 @@ def pl_each_seg_top():
     playstore_data['month'] = d.month
     for i in genres:
         play = playstore_data[(playstore_data['Installs'] != '1,000,000,000+') & (playstore_data['Genres'] == i) & (
-                playstore_data['Rating'] >= 4.5) & (playstore_data['year'] == 2018)]['App']
+            playstore_data['Rating'] >= 4.5) & (playstore_data['year'] == 2018)]['App']
         print('')
         print('Printing 10 Apps with 100 million installs and Rating >= 4.5 and Year = 2018 in {}'.format(i))
         print('--------------------------------------------------')
@@ -232,7 +238,8 @@ def pl_paid_analysis():
 
     # Top rated paid apps with installs 1,000,000+
 
-    print(paided[(paided['Rating'] > 4.7) & (paided['Installs'] == '100,000+')]['App'])
+    print(paided[(paided['Rating'] > 4.7) & (
+        paided['Installs'] == '100,000+')]['App'])
 
 
 def pl_freevspaid():
@@ -241,7 +248,8 @@ def pl_freevspaid():
     size = [8895, 753]
     sentiment = ['Free', 'Paid']
     colors = ['g', 'pink']
-    plt.pie(size, labels=sentiment, colors=colors, startangle=180, autopct='%.1f%%')
+    plt.pie(size, labels=sentiment, colors=colors,
+            startangle=180, autopct='%.1f%%')
     plt.title('% Free vs Paid Apps')
     plt.show()
 
@@ -255,15 +263,16 @@ def exit():
                       text='Presented By:\n1.Ankush Soni\nKunal Sonar\n3.Shubham Thombare\n\n\nThank You!',
                       bg='#d1d8e0', fg='black', font=('opensans', 20, 'italic')).pack()
     # print("Escaped!\n")
-    #sys.exit
+    # sys.exit
     main_ui.destroy()
-    MainButton2 = Button(end_ui,text="Exit", fg="black", bg="#778ca3", command=end_ui.destroy,
+    MainButton2 = Button(end_ui, text="Exit", fg="black", bg="#778ca3", command=end_ui.destroy,
                          font=('arial', 12, 'italic')).place(x=330, y=350)
-
 
     end_ui.mainloop()
 
 # Apple store Functions
+
+
 def as_apple_head():
     print("First 5 entries in Dataset Applestore\n")
     print(store_data.head())
@@ -276,7 +285,8 @@ def as_apple_head():
 
 
 def as_top_on_rating():
-    store_data_sorted = store_data.sort_values('rating_count_tot', ascending=False)
+    store_data_sorted = store_data.sort_values(
+        'rating_count_tot', ascending=False)
     subset_store_data_sorted = store_data_sorted[:10]
 
     visualizer(subset_store_data_sorted.track_name, subset_store_data_sorted.rating_count_tot, "bar",
@@ -286,7 +296,8 @@ def as_top_on_rating():
 
 def as_top_on_download():
     store_data_download = store_data.sort_values('size_bytes', ascending=False)
-    store_data_download.size_bytes /= 1024 * 1024  # Conversion from Bytes to MegaBytes
+    store_data_download.size_bytes /= 1024 * \
+        1024  # Conversion from Bytes to MegaBytes
     subset_store_data_download = store_data_download[:10]
 
     visualizer(subset_store_data_download.track_name, subset_store_data_download.size_bytes, "bar",
@@ -304,8 +315,10 @@ def as_top_on_price():
 
 
 def as_all_time_fav():
-    store_data["favourites_tot"] = store_data["rating_count_tot"] * store_data["user_rating"]
-    store_data["favourites_ver"] = store_data["rating_count_ver"] * store_data["user_rating_ver"]
+    store_data["favourites_tot"] = store_data["rating_count_tot"] * \
+        store_data["user_rating"]
+    store_data["favourites_ver"] = store_data["rating_count_ver"] * \
+        store_data["user_rating_ver"]
     favourite_app = store_data.sort_values("favourites_tot", ascending=False)
     favourite_app_subset = favourite_app[:10]
 
@@ -315,11 +328,14 @@ def as_all_time_fav():
 
 
 def as_current_fav():
-    store_data["favourites_tot"] = store_data["rating_count_tot"] * store_data["user_rating"]
-    store_data["favourites_ver"] = store_data["rating_count_ver"] * store_data["user_rating_ver"]
+    store_data["favourites_tot"] = store_data["rating_count_tot"] * \
+        store_data["user_rating"]
+    store_data["favourites_ver"] = store_data["rating_count_ver"] * \
+        store_data["user_rating_ver"]
     favourite_app = store_data.sort_values("favourites_tot", ascending=False)
     favourite_app_subset = favourite_app[:10]
-    favourite_app_ver = store_data.sort_values("favourites_ver", ascending=False)
+    favourite_app_ver = store_data.sort_values(
+        "favourites_ver", ascending=False)
     favourite_app_ver_subset = favourite_app_ver[:10]
 
     visualizer(favourite_app_ver_subset.rating_count_ver, favourite_app_ver_subset.track_name,
@@ -336,13 +352,15 @@ main_ui.geometry("850x550+50+50")
 main_ui.configure(bg='#ffaf40')
 
 # First Slide data
-Wel_Label = Label(text='Welcome Geek!\n', fg="black", bg="#ffaf40", font=('Arial', 20, 'bold')).pack()
-MainLabel = Label(text='Select App Store', fg="black", bg="#ffaf40", font=('Arial', 20, 'bold')).pack()
+Wel_Label = Label(text='Welcome Geek!\n', fg="black",
+                  bg="#ffaf40", font=('Arial', 20, 'bold')).pack()
+MainLabel = Label(text='Select App Store', fg="black",
+                  bg="#ffaf40", font=('Arial', 20, 'bold')).pack()
 MainButton1 = Button(text="Google Play Store", fg="black", bg="#fa8231", command=googleplaystore,
                      font=('opensans', 12, 'italic')).place(x=170, y=150)
 MainButton2 = Button(text="Apple App Store", fg="black", bg="#fa8231", command=applestore,
                      font=('opensans', 12, 'italic')).place(x=370, y=150)
 MainButton3 = Button(text='3.Exit', fg="black", bg="#fa8231", command=exit,
                      font=('opensans', 12, 'italic')).place(x=570, y=150)
-#exit()
+# exit()
 main_ui.mainloop()

@@ -12,8 +12,9 @@
     left: 60px;
     top: 20px;
     display: inline-block;
-    /* border: 2px solid yellowgreen; */
-}
+    /* border: 2px solid yellowgreen; 
+} 
+*/
 
 .mid {
     display: block;
@@ -105,4 +106,4 @@
     display: block;
     width:74%;
     margin:auto;
-} */
+} 
