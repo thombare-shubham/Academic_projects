@@ -22,16 +22,16 @@ def save_STFT(file, name, activity, subject):
     # print(stft)
     # save features
     # Features are saved as a numpy array(that's why it is saved as .npy file)
-    np.save("STFT_features/stft_257_1/" + subject + "_" + name[:-4] + "_" + activity + ".npy", stft)
+    np.save("Features/" + subject + "_" + name[:-4] + "_" + activity + ".npy", stft)
 
-activities = ['Airplane', 'Breathing', 'BrushingTeeths', 'CanOpening', 'CarHorn', 'Cat', 'ChirpingBirds', 'ChurchBells', 'Clapping', 'ClockAlarm', 'ClockTick', 'Coughing', 'Cow', 'CracklingFire', 'Crow', 'CryingBaby', 'Dog', 'Door_or_WoodCreaks', 'DoorKnock', 'Drinking', 'Engine', 'Fireworks', 'FlyingInsects', 'Footsteps', 'Frog', 'GlassBreaking', 'HandSaw', 'Helicopter', 'Hen', 'KeyboardTyping', 'Laughing', 'MouseClick', 'Night', 'Pig', 'PouringWater', 'Rain', 'Rooster', 'SeaWaves', 'Sheep', 'Siren', 'Sneezing', 'Snoring', 'Thunderstorm', 'ToiletFlush', 'Train', 'TwoWheeler', 'VaccumCleaner', 'WashingMachine', 'WaterDrops', 'Wind']
+activities = ['CanOpening', 'CarHorn', 'Cat', 'ChirpingBirds', 'Clapping', 'ClockAlarm', 'Cow', 'CracklingFire', 'Crow', 'CryingBaby', 'Dog', 'Door_or_WoodCreaks', 'Engine', 'Fireworks', 'GlassBreaking', 'HandSaw', 'Helicopter', 'Hen', 'Laughing', 'Night', 'Pig', 'Rain', 'Rooster', 'SeaWaves', 'Siren', 'Snoring', 'Thunderstorm', 'Train', 'TwoWheeler', 'VaccumCleaner', 'WaterDrops', 'Wind']
     
 subjects = ['s01', 's02', 's03', 's04', 's05']
 
 for activity in activities:
     for subject in subjects:
         innerDir = subject + "/" + activity
-        for file in os.listdir("Dataset_audio/"):
+        for file in os.listdir("Dataset_audio/"+innerDir+"/"):
             if(file.endswith(".wav")):
-                save_STFT("Dataset_audio/" + file, file, activity, subject)
-                print(subject,activity,file)
+                save_STFT("Dataset_audio/"+innerDir+"/" + file, file, activity, subject)
+                print("Extracting feature from "+subject+"-"+file+"-"+activity)
