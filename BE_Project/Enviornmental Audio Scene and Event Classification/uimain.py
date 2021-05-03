@@ -17,7 +17,7 @@ main_ui = Tk()
 
 # Load Segment Audio Classification model
 model_path = r"Models/"
-model_name = "2021_03_04_18_45_34[6.829300403594971, 0.3680555522441864]"
+model_name = "audio_NN_New2021_02_12_12_19_01_acc_26.0"
 
 # Model reconstruction from a json file
 with open(model_path + model_name + '.json', 'r') as f:
@@ -31,7 +31,30 @@ model.load_weights(model_path + model_name + '.h5')
 lb = LabelEncoder()
 
 # using fit_transform
-lb.fit_transform(['Airplane','CanOpening','CarHorn','Clapping','ClockAlarm','Crow','CryingBaby','Dog','Engine','Fireworks','GlassBreaking','HandSaw','Helicopter','Laughing','Siren','Thunderstorm','Train','VaccumCleaner','other'])
+lb.fit_transform((['Airplane',  'Breathing', 'BrushingTeeths', 'CanOpening', 'CarHorn', 'Cat', 'ChirpingBirds', 'ChurchBells', 'Clapping', 'ClockAlarm', 'ClockTick', 'Coughing', 'Cow', 'CracklingFire', 'Crow', 'CryingBaby', 'Dog', 'DoorKnock', 'Drinking', 'Engine', 'Fireworks', 'FlyingInsects', 'Footsteps', 'Frog','GlassBreaking', 'HandSaw', 'Helicopter', 'Hen', 'KeyboardTyping', 'Laughing', 'MouseClick', 'Night', 'Pig', 'PouringWater', 'Rain', 'Rooster', 'SeaWaves', 'Sheep', 'Siren', 'Sneezing', 'Snoring', 'Thunderstorm', 'ToiletFlush', 'Train', 'TwoWheeler', 'VaccumCleaner', 'WashingMachine', 'WaterDrops', 'Wind', 'WoodCreaks']))
+
+# Other Utilities
+
+# Plot audio with zoomed in y axis
+
+
+def plotAudio(output):
+    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(10, 5))
+    # subplots() function takes 3 arguments no of rows,no of columns,figno/figproperty
+    # Function retuns an instance of figure and an array of axes values
+    plt.plot(output, color='blue')  # Plot y versus x as lines and/or markers.
+    ax.set_xlim((0, len(output)))  # returns new x axis limits in coordinates
+    ax.margins(2, -0.1)  # set autoscaling margins
+    plt.show()  # Display all open figures
+
+# Plot Audio
+
+
+def plotAudio2(output):
+    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(15, 3))
+    plt.plot(output, color='blue')
+    ax.set_xlim(0, len(output))
+    plt.show()
 
 # SPLIT GIVEN LONG AUDIO FILE IN SILENT PARTS
 # Accepts audio numpy array audio_data,window_length w,hop_length h,threshold_level,tolerance
@@ -123,11 +146,8 @@ def run_func():
             # trim is used to trim leading and trailing silence from audio
             # returns a trimmed signal and the interval of y corresponding to the non silent region.
         result = predictSound(clip)
-        if(result == 'other' ):
-            messagebox.showinfo("Result","Children are in safe environment")
+        messagebox.showinfo("Result","It's sound of a "+result)
         # print(result)
-        else:
-            messagebox.showinfo("Result","The sound is of "+ result + "Children are not in safe Environment")
 
     else:
         messagebox.showinfo("Error","Wrong file selected/No file Selected")
